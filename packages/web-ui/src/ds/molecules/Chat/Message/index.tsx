@@ -33,7 +33,7 @@ export type MessageProps = {
   className?: string
   size?: 'default' | 'small'
   animatePulse?: boolean
-  parameters?: Record<string, unknown>
+  parameters?: string[]
   collapseParameters?: boolean
 }
 
@@ -76,7 +76,7 @@ export function Message({
   content,
   animatePulse = false,
   size = 'default',
-  parameters = {},
+  parameters = [],
   collapseParameters = false,
 }: MessageProps) {
   return (
@@ -101,7 +101,7 @@ export function Message({
 export function MessageItemContent({
   content,
   size = 'default',
-  parameters = {},
+  parameters = [],
   collapseParameters = false,
   collapsedMessage,
 }: {
@@ -153,7 +153,7 @@ const Content = ({
   color,
   value,
   size,
-  parameters = {},
+  parameters = [],
   collapseParameters = false,
   sourceMap = [],
 }: {
@@ -161,7 +161,7 @@ const Content = ({
   color: TextColor
   value: string | MessageContent
   size?: 'default' | 'small'
-  parameters?: Record<string, unknown>
+  parameters?: string[]
   collapseParameters?: boolean
   sourceMap?: PromptlSourceRef[]
 }) => {
@@ -245,7 +245,7 @@ const ContentText = ({
   color,
   size,
   message,
-  parameters = {},
+  parameters = [],
   collapseParameters = false,
   sourceMap = [],
 }: {
@@ -253,7 +253,7 @@ const ContentText = ({
   color: TextColor
   size?: 'default' | 'small'
   message: TextContent['text']
-  parameters?: Record<string, unknown>
+  parameters?: string[]
   collapseParameters?: boolean
   sourceMap?: PromptlSourceRef[]
 }) => {
@@ -411,7 +411,7 @@ function computeSegments(
   type: ContentType,
   source: string,
   sourceMap: PromptlSourceRef[],
-  parameters: Record<string, unknown>,
+  parameters: string[],
 ): Segment[] {
   let segments: Segment[] = []
 
@@ -429,7 +429,8 @@ function computeSegments(
   for (let i = 0; i < sourceMap.length; i++) {
     segments.push({
       identifier:
-        sourceMap[i]!.identifier && !!parameters[sourceMap[i]!.identifier!]
+        sourceMap[i]!.identifier &&
+        parameters.includes(sourceMap[i]!.identifier!)
           ? sourceMap[i]!.identifier!
           : undefined,
       content: source.slice(sourceMap[i]!.start, sourceMap[i]!.end),
@@ -475,7 +476,7 @@ const ContentImage = ({
   color,
   size,
   image,
-  parameters = {},
+  parameters = [],
   collapseParameters = false,
   sourceMap = [],
 }: {
@@ -483,10 +484,24 @@ const ContentImage = ({
   color: TextColor
   size?: 'default' | 'small'
   image: ImageContent['image']
-  parameters?: Record<string, unknown>
+  parameters?: string[]
   collapseParameters?: boolean
   sourceMap?: PromptlSourceRef[]
 }) => {
+  if (
+    (typeof image !== 'string' && !(image instanceof URL)) ||
+    !image.toString().startsWith('https')
+  ) {
+    return (
+      <ContentText
+        index={index}
+        color={color}
+        size={size}
+        message={'<Image preview unavailable>'}
+      />
+    )
+  }
+
   const TextComponent = size === 'small' ? Text.H6 : Text.H5
 
   const segment = useMemo(
