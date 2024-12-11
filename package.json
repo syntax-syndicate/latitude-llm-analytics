@@ -73,7 +73,7 @@
     "jose": "^5.8.0",
     "lodash-es": "^4.17.21",
     "loops": "^3.3.0",
-    "lucide-react": "^0.403.0",
+    "lucide-react": "^0.468.0",
     "monaco-editor": "^0.50.0",
     "nanoid": "^5.0.7",
     "nodemailer": "^6.9.14",

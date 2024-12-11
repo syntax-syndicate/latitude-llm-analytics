@@ -133,4 +133,6 @@ export class DiskWrapper {
   }
 }
 
+export { DriveFile } from 'flydrive'
+
 export const diskFactory = () => new DiskWrapper()
