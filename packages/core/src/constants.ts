@@ -452,3 +452,11 @@ export type DocumentLogFilterOptions = {
   commitIds: number[]
   logSources: LogSources[]
 }
+
+export enum ParameterType {
+  Text = 'text',
+  Document = 'document',
+  Image = 'image',
+}
+
+export const SUPPORTED_IMAGE_TYPES = ['.jpg', '.jpeg', '.png', '.gif', '.webp']
