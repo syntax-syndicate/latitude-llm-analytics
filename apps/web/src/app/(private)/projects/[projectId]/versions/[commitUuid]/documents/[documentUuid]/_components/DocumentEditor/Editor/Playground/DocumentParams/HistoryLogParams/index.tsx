@@ -1,13 +1,13 @@
-import { DocumentLog, DocumentVersion } from '@latitude-data/core/browser'
-import { Badge, cn, Icon, Skeleton, Text } from '@latitude-data/web-ui'
 import { useDocumentParameters } from '$/hooks/useDocumentParameters'
 import { useGenerateDocumentLogDetailUrl } from '$/hooks/useGenerateDocumentLogDetailUrl'
+import { DocumentLog, DocumentVersion } from '@latitude-data/core/browser'
+import { Badge, cn, Icon, Skeleton, Text } from '@latitude-data/web-ui'
 import { format } from 'date-fns'
 import Link from 'next/link'
 
 import { InputParams } from '../Input'
 import { ParametersPaginationNav } from '../PaginationNav'
-import { UseLogHistoryParams } from './useLogHistoryParams'
+import { type UseLogHistoryParams } from './useLogHistoryParams'
 
 function usePaginatedDocumentLogUrl({
   page,
@@ -39,10 +39,14 @@ export function HistoryLogParams({
   data,
   commitVersionUuid,
   document,
+  prompt,
+  setPrompt,
 }: {
+  data: UseLogHistoryParams
   document: DocumentVersion
   commitVersionUuid: string
-  data: UseLogHistoryParams
+  prompt: string
+  setPrompt: (prompt: string) => void
 }) {
   const {
     history: { inputs, setInput },
@@ -103,7 +107,12 @@ export function HistoryLogParams({
         )}
       </div>
       <div className={cn({ 'opacity-50': data.isLoading })}>
-        <InputParams inputs={inputs} setInput={setInput} />
+        <InputParams
+          inputs={inputs}
+          setInput={setInput}
+          prompt={prompt}
+          setPrompt={setPrompt}
+        />
       </div>
     </div>
   )

@@ -1,6 +1,6 @@
+import { ROUTES } from '$/services/routes'
 import { DocumentVersion } from '@latitude-data/core/browser'
 import { Button, cn, Icon, Select } from '@latitude-data/web-ui'
-import { ROUTES } from '$/services/routes'
 import Link from 'next/link'
 
 import { ParametersPaginationNav } from '../PaginationNav'
@@ -24,10 +24,14 @@ export function DatasetParams({
   data,
   commitVersionUuid,
   document,
+  prompt,
+  setPrompt,
 }: {
+  data: UseSelectDataset
   document: DocumentVersion
   commitVersionUuid: string
-  data: UseSelectDataset
+  prompt: string
+  setPrompt: (prompt: string) => void
 }) {
   const selectedId = data.selectedDataset?.id
     ? String(data.selectedDataset.id)
@@ -69,6 +73,8 @@ export function DatasetParams({
           headersOptions={data.datasetPreview.headersOptions}
           onSelectHeader={data.onSelectHeader}
           selectedDataset={data.selectedDataset}
+          prompt={prompt}
+          setPrompt={setPrompt}
         />
       </div>
     </div>

@@ -1,3 +1,8 @@
+import {
+  INPUT_SOURCE,
+  InputSource,
+  useDocumentParameters,
+} from '$/hooks/useDocumentParameters'
 import { DocumentVersion } from '@latitude-data/core/browser'
 import {
   ClientOnly,
@@ -6,11 +11,6 @@ import {
   TabSelector,
   type TabSelectorOption,
 } from '@latitude-data/web-ui'
-import {
-  INPUT_SOURCE,
-  InputSource,
-  useDocumentParameters,
-} from '$/hooks/useDocumentParameters'
 
 import { DatasetParams } from './DatasetParams'
 import {
@@ -34,6 +34,8 @@ const TABS: TabSelectorOption<InputSource>[] = [
 export type Props = {
   document: DocumentVersion
   commitVersionUuid: string
+  prompt: string
+  setPrompt: (prompt: string) => void
   onExpand?: OnExpandFn
 }
 type ContentProps = Props & {
@@ -44,6 +46,8 @@ type ContentProps = Props & {
 function ParamsTabs({
   document,
   commitVersionUuid,
+  prompt,
+  setPrompt,
   datasetInfo,
   historyInfo,
 }: ContentProps) {
@@ -64,6 +68,8 @@ function ParamsTabs({
         <ManualParams
           document={document}
           commitVersionUuid={commitVersionUuid}
+          prompt={prompt}
+          setPrompt={setPrompt}
         />
       )}
       {source === INPUT_SOURCE.dataset && (
@@ -71,6 +77,8 @@ function ParamsTabs({
           data={datasetInfo}
           document={document}
           commitVersionUuid={commitVersionUuid}
+          prompt={prompt}
+          setPrompt={setPrompt}
         />
       )}
       {source === INPUT_SOURCE.history && (
@@ -78,6 +86,8 @@ function ParamsTabs({
           data={historyInfo}
           document={document}
           commitVersionUuid={commitVersionUuid}
+          prompt={prompt}
+          setPrompt={setPrompt}
         />
       )}
     </div>
