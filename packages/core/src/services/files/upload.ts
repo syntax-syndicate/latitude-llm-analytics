@@ -16,7 +16,7 @@ import { convertFile } from './convert'
 export async function uploadFile(
   file: File,
   workspace: Workspace,
-  disk: DiskWrapper = diskFactory(),
+  disk: DiskWrapper = diskFactory('public'),
 ): Promise<TypedResult<string, Error>> {
   const extension = path.extname(file.name).toLowerCase()
   const key = `workspaces/${workspace.id}/files/${slugify(file.name, { preserveCharacters: ['.'] })}`
@@ -38,9 +38,10 @@ export async function uploadFile(
 
   try {
     await disk.putFile(key, file).then((r) => r.unwrap())
-    const url = await disk
-      .file(key)
-      .getSignedUrl({ expiresIn: undefined, contentDisposition: 'inline' })
+    const url = await disk.getSignedUrl(key, {
+      expiresIn: undefined,
+      contentDisposition: 'inline',
+    })
 
     return Result.ok(url)
   } catch (error) {

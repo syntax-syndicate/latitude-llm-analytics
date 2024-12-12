@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { Workspace } from '../../browser'
 import * as constants from '../../constants'
 import { BadRequestError, Result, UnprocessableEntityError } from '../../lib'
-import { diskFactory, DriveFile } from '../../lib/disk'
+import { diskFactory } from '../../lib/disk'
 import * as factories from '../../tests/factories'
 
 import * as convert from './convert'
@@ -25,9 +25,6 @@ describe('uploadFile', () => {
     workspace = w
 
     vi.spyOn(disk, 'putFile').mockResolvedValue(Result.ok(undefined))
-    vi.spyOn(DriveFile.prototype, 'getSignedUrl').mockResolvedValue(
-      'fake-signed-url',
-    )
   })
 
   it('not uploads empty file', async () => {
@@ -84,7 +81,7 @@ describe('uploadFile', () => {
 
       await expect(
         uploadFile(file, workspace, disk).then((r) => r.unwrap()),
-      ).resolves.toEqual('fake-signed-url')
+      ).resolves.toContain(`/workspaces/${workspace.id}/files/${name}`)
       expect(convertFile).not.toHaveBeenCalled()
     }
   })
@@ -101,7 +98,7 @@ describe('uploadFile', () => {
 
       await expect(
         uploadFile(file, workspace, disk).then((r) => r.unwrap()),
-      ).resolves.toEqual('fake-signed-url')
+      ).resolves.toContain(`/workspaces/${workspace.id}/files/${name}`)
       expect(convertFile).toHaveBeenCalledWith(file)
     }
   })

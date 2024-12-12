@@ -490,7 +490,8 @@ const ContentImage = ({
 }) => {
   if (
     (typeof image !== 'string' && !(image instanceof URL)) ||
-    !image.toString().startsWith('https')
+    (!image.toString().startsWith('https') &&
+      !image.toString().startsWith('http://localhost'))
   ) {
     return (
       <ContentText
