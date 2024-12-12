@@ -1,5 +1,10 @@
 import { isNumber } from 'lodash-es'
 
+import {
+  DatasetSource,
+  PlaygroundInput,
+  useDocumentParameters,
+} from '$/hooks/useDocumentParameters'
 import { Dataset, DocumentVersion } from '@latitude-data/core/browser'
 import {
   Badge,
@@ -10,12 +15,8 @@ import {
   Text,
   Tooltip,
 } from '@latitude-data/web-ui'
-import {
-  DatasetSource,
-  PlaygroundInput,
-  useDocumentParameters,
-} from '$/hooks/useDocumentParameters'
 
+import { ParameterTypeSelector } from '../Input'
 import { UseSelectDataset, type DatasetPreview } from './useSelectDataset'
 
 function getTooltipValue(input: PlaygroundInput<'dataset'>) {
@@ -39,6 +40,8 @@ export function InputMapper({
   isLoading,
   onSelectHeader,
   selectedDataset,
+  prompt,
+  setPrompt,
 }: {
   document: DocumentVersion
   commitVersionUuid: string
@@ -47,6 +50,8 @@ export function InputMapper({
   onSelectHeader: UseSelectDataset['onSelectHeader']
   isLoading: boolean
   selectedDataset: Dataset | undefined
+  prompt: string
+  setPrompt: (prompt: string) => void
 }) {
   const {
     setSource,
@@ -71,7 +76,13 @@ export function InputMapper({
                   className='grid col-span-2 grid-cols-subgrid gap-3 w-full items-start'
                   key={idx}
                 >
-                  <div className='flex flex-row items-center gap-x-1 min-h-8'>
+                  <div className='flex flex-row items-center gap-x-2 min-h-8'>
+                    <ParameterTypeSelector
+                      parameter={param}
+                      inputs={inputs}
+                      prompt={prompt}
+                      setPrompt={setPrompt}
+                    />
                     <Badge variant={isMapped ? 'accent' : 'muted'}>
                       &#123;&#123;{param}&#125;&#125;
                     </Badge>
