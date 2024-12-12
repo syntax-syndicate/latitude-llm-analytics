@@ -39,14 +39,10 @@ export function HistoryLogParams({
   data,
   commitVersionUuid,
   document,
-  prompt,
-  setPrompt,
 }: {
-  data: UseLogHistoryParams
   document: DocumentVersion
   commitVersionUuid: string
-  prompt: string
-  setPrompt: (prompt: string) => void
+  data: UseLogHistoryParams
 }) {
   const {
     history: { inputs, setInput },
@@ -107,12 +103,7 @@ export function HistoryLogParams({
         )}
       </div>
       <div className={cn({ 'opacity-50': data.isLoading })}>
-        <InputParams
-          inputs={inputs}
-          setInput={setInput}
-          prompt={prompt}
-          setPrompt={setPrompt}
-        />
+        <InputParams source='history' inputs={inputs} setInput={setInput} />
       </div>
     </div>
   )

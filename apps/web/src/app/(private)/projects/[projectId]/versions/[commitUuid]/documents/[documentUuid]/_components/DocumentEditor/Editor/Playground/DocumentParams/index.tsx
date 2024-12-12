@@ -77,8 +77,6 @@ function ParamsTabs({
           data={datasetInfo}
           document={document}
           commitVersionUuid={commitVersionUuid}
-          prompt={prompt}
-          setPrompt={setPrompt}
         />
       )}
       {source === INPUT_SOURCE.history && (
@@ -86,8 +84,6 @@ function ParamsTabs({
           data={historyInfo}
           document={document}
           commitVersionUuid={commitVersionUuid}
-          prompt={prompt}
-          setPrompt={setPrompt}
         />
       )}
     </div>

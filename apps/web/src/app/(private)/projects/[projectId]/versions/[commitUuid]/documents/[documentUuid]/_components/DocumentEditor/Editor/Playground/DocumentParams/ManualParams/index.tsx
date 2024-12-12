@@ -17,6 +17,7 @@ export function ManualParams({
   })
   return (
     <InputParams
+      source='manual'
       inputs={inputs}
       setInput={setInput}
       prompt={prompt}

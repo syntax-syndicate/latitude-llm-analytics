@@ -16,7 +16,6 @@ import {
   Tooltip,
 } from '@latitude-data/web-ui'
 
-import { ParameterTypeSelector } from '../Input'
 import { UseSelectDataset, type DatasetPreview } from './useSelectDataset'
 
 function getTooltipValue(input: PlaygroundInput<'dataset'>) {
@@ -40,8 +39,6 @@ export function InputMapper({
   isLoading,
   onSelectHeader,
   selectedDataset,
-  prompt,
-  setPrompt,
 }: {
   document: DocumentVersion
   commitVersionUuid: string
@@ -50,8 +47,6 @@ export function InputMapper({
   onSelectHeader: UseSelectDataset['onSelectHeader']
   isLoading: boolean
   selectedDataset: Dataset | undefined
-  prompt: string
-  setPrompt: (prompt: string) => void
 }) {
   const {
     setSource,
@@ -77,12 +72,6 @@ export function InputMapper({
                   key={idx}
                 >
                   <div className='flex flex-row items-center gap-x-2 min-h-8'>
-                    <ParameterTypeSelector
-                      parameter={param}
-                      inputs={inputs}
-                      prompt={prompt}
-                      setPrompt={setPrompt}
-                    />
                     <Badge variant={isMapped ? 'accent' : 'muted'}>
                       &#123;&#123;{param}&#125;&#125;
                     </Badge>

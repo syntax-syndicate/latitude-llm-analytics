@@ -24,14 +24,10 @@ export function DatasetParams({
   data,
   commitVersionUuid,
   document,
-  prompt,
-  setPrompt,
 }: {
-  data: UseSelectDataset
   document: DocumentVersion
   commitVersionUuid: string
-  prompt: string
-  setPrompt: (prompt: string) => void
+  data: UseSelectDataset
 }) {
   const selectedId = data.selectedDataset?.id
     ? String(data.selectedDataset.id)
@@ -73,8 +69,6 @@ export function DatasetParams({
           headersOptions={data.datasetPreview.headersOptions}
           onSelectHeader={data.onSelectHeader}
           selectedDataset={data.selectedDataset}
-          prompt={prompt}
-          setPrompt={setPrompt}
         />
       </div>
     </div>
