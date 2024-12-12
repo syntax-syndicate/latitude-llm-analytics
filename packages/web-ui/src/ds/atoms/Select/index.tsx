@@ -39,10 +39,12 @@ type SelectProps = Omit<FormFieldProps, 'children'> & {
   options: SelectOption[] | SelectOptionGroup[]
   defaultValue?: string
   value?: string
+  trigger?: ReactNode
   placeholder?: string
   disabled?: boolean
   required?: boolean
   onChange?: (value: string) => void
+  width?: 'auto' | 'full'
 }
 export function Select({
   name,
@@ -51,11 +53,13 @@ export function Select({
   description,
   errors,
   autoFocus,
+  trigger,
   placeholder,
   options,
   defaultValue,
   value,
   onChange,
+  width = 'full',
   disabled = false,
   required = false,
 }: SelectProps) {
@@ -73,8 +77,9 @@ export function Select({
       label={label}
       description={description}
       errors={errors}
+      className={width === 'full' ? 'w-full' : 'w-auto'}
     >
-      <div className='w-full'>
+      <div className={width === 'full' ? 'w-full' : 'w-auto'}>
         <SelectRoot
           required={required}
           disabled={disabled}
@@ -83,13 +88,17 @@ export function Select({
           defaultValue={defaultValue}
           onValueChange={_onChange}
         >
-          <SelectTrigger autoFocus={autoFocus}>
-            <SelectValue
-              selected={selectedValue}
-              options={options}
-              placeholder={placeholder ?? 'Select an option'}
-            />
-          </SelectTrigger>
+          {trigger ? (
+            trigger
+          ) : (
+            <SelectTrigger autoFocus={autoFocus}>
+              <SelectValue
+                selected={selectedValue}
+                options={options}
+                placeholder={placeholder ?? 'Select an option'}
+              />
+            </SelectTrigger>
+          )}
           <SelectContent>
             {'options' in options ? (
               <div>Grouping</div>
