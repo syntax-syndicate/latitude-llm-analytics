@@ -9,6 +9,7 @@ import {
   RuleEvaluationMetric,
 } from '@latitude-data/constants'
 import { IconName } from '@latitude-data/web-ui'
+import React from 'react'
 import * as rule from './rule'
 
 export type EvaluationMetricFrontendSpecification<
@@ -18,6 +19,10 @@ export type EvaluationMetricFrontendSpecification<
   R extends EvaluationResultMetadata<M> = EvaluationResultMetadata<M>,
 > = EvaluationMetricSpecification<T, M, C, R> & {
   icon: IconName
+  configurationForm: React.FC<{
+    configuration: C
+    onChange: (configuration: C) => void
+  }>
 }
 
 // prettier-ignore
