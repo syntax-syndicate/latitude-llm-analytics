@@ -10,8 +10,7 @@ import {
 } from '../../../browser'
 import { Database } from '../../../client'
 import { LatitudeError, TypedResult } from '../../../lib'
-import exactMatch from './rule/exactMatch'
-import regularExpression from './rule/regularExpression'
+import * as rule from './rule'
 
 export type EvaluationMetricBackendSpecification<
   T extends EvaluationType = EvaluationType,
@@ -33,8 +32,8 @@ export type EvaluationMetricSpecifications = {
 export const EVALUATION_METRIC_SPECIFICATIONS: EvaluationMetricSpecifications =
   {
     [EvaluationType.Rule]: {
-      [RuleEvaluationMetric.ExactMatch]: exactMatch,
-      [RuleEvaluationMetric.RegularExpression]: regularExpression,
+      [RuleEvaluationMetric.ExactMatch]: rule.ExactMatch,
+      [RuleEvaluationMetric.RegularExpression]: rule.RegularExpression,
       [RuleEvaluationMetric.LengthCount]: undefined as any, // TODO: Implement
       [RuleEvaluationMetric.LexicalOverlap]: undefined as any, // TODO: Implement
       [RuleEvaluationMetric.SemanticSimilarity]: undefined as any, // TODO: Implement

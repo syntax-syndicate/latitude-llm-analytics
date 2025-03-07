@@ -125,6 +125,7 @@ export type EvaluationMetricSpecification<
   description: string
   configuration: z.ZodSchema<C>
   resultMetadata: z.ZodSchema<R>
+  supportsLiveEvaluation: boolean
 }
 
 // prettier-ignore

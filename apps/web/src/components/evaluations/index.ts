@@ -6,11 +6,10 @@ import {
   EvaluationType,
   HumanEvaluationMetric,
   LlmEvaluationMetric,
-  RuleEvaluationExactMatchSpecification,
   RuleEvaluationMetric,
-  RuleEvaluationRegularExpressionSpecification,
 } from '@latitude-data/constants'
 import { IconName } from '@latitude-data/web-ui'
+import * as rule from './rule'
 
 export type EvaluationMetricFrontendSpecification<
   T extends EvaluationType = EvaluationType,
@@ -29,14 +28,8 @@ export type EvaluationMetricSpecifications = {
 export const EVALUATION_METRIC_SPECIFICATIONS: EvaluationMetricSpecifications =
   {
     [EvaluationType.Rule]: {
-      [RuleEvaluationMetric.ExactMatch]: {
-        ...RuleEvaluationExactMatchSpecification,
-        icon: 'equal',
-      },
-      [RuleEvaluationMetric.RegularExpression]: {
-        ...RuleEvaluationRegularExpressionSpecification,
-        icon: 'regex',
-      },
+      [RuleEvaluationMetric.ExactMatch]: rule.ExactMatch,
+      [RuleEvaluationMetric.RegularExpression]: rule.RegularExpression,
       [RuleEvaluationMetric.LengthCount]: undefined as any, // TODO: Implement
       [RuleEvaluationMetric.LexicalOverlap]: undefined as any, // TODO: Implement
       [RuleEvaluationMetric.SemanticSimilarity]: undefined as any, // TODO: Implement

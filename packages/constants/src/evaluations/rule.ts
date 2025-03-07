@@ -25,6 +25,7 @@ export const RuleEvaluationExactMatchSpecification = {
     DatasetLabel: z.string(),
   }),
   resultMetadata: RuleEvaluationResultMetadata.extend({}),
+  supportsLiveEvaluation: false,
 }
 export type RuleEvaluationExactMatchConfiguration = z.infer<
   typeof RuleEvaluationExactMatchSpecification.configuration
@@ -42,6 +43,7 @@ export const RuleEvaluationRegularExpressionSpecification = {
     Pattern: z.string(),
   }),
   resultMetadata: RuleEvaluationResultMetadata.extend({}),
+  supportsLiveEvaluation: true,
 }
 export type RuleEvaluationRegularExpressionConfiguration = z.infer<
   typeof RuleEvaluationRegularExpressionSpecification.configuration
@@ -61,6 +63,7 @@ export const RuleEvaluationLengthCountSpecification = {
     MaxLength: z.number().optional(),
   }),
   resultMetadata: RuleEvaluationResultMetadata.extend({}),
+  supportsLiveEvaluation: true,
 }
 export type RuleEvaluationLengthCountConfiguration = z.infer<
   typeof RuleEvaluationLengthCountSpecification.configuration
@@ -85,6 +88,7 @@ export const RuleEvaluationLexicalOverlapSpecification = {
     DatasetLabel: z.string(),
   }),
   resultMetadata: RuleEvaluationResultMetadata.extend({}),
+  supportsLiveEvaluation: false,
 }
 export type RuleEvaluationLexicalOverlapConfiguration = z.infer<
   typeof RuleEvaluationLexicalOverlapSpecification.configuration
@@ -105,6 +109,7 @@ export const RuleEvaluationSemanticSimilaritySpecification = {
     DatasetLabel: z.string(),
   }),
   resultMetadata: RuleEvaluationResultMetadata.extend({}),
+  supportsLiveEvaluation: false,
 }
 export type RuleEvaluationSemanticSimilarityConfiguration = z.infer<
   typeof RuleEvaluationSemanticSimilaritySpecification.configuration

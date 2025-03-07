@@ -27,6 +27,7 @@ export const HumanEvaluationBinarySpecification = {
     FailDescription: z.string(),
   }),
   resultMetadata: HumanEvaluationResultMetadata.extend({}),
+  supportsLiveEvaluation: false,
 }
 export type HumanEvaluationBinaryConfiguration = z.infer<
   typeof HumanEvaluationBinarySpecification.configuration
@@ -34,6 +35,7 @@ export type HumanEvaluationBinaryConfiguration = z.infer<
 export type HumanEvaluationBinaryResultMetadata = z.infer<
   typeof HumanEvaluationBinarySpecification.resultMetadata
 >
+
 // RATING
 
 export const HumanEvaluationRatingSpecification = {
@@ -46,6 +48,7 @@ export const HumanEvaluationRatingSpecification = {
     MaxRatingDescription: z.string(),
   }),
   resultMetadata: HumanEvaluationResultMetadata.extend({}),
+  supportsLiveEvaluation: false,
 }
 export type HumanEvaluationRatingConfiguration = z.infer<
   typeof HumanEvaluationRatingSpecification.configuration
@@ -53,6 +56,7 @@ export type HumanEvaluationRatingConfiguration = z.infer<
 export type HumanEvaluationRatingResultMetadata = z.infer<
   typeof HumanEvaluationRatingSpecification.resultMetadata
 >
+
 // COMPARISON
 
 export const HumanEvaluationComparisonSpecification = {
@@ -62,6 +66,7 @@ export const HumanEvaluationComparisonSpecification = {
     DatasetLabel: z.string(),
   }),
   resultMetadata: HumanEvaluationResultMetadata.extend({}),
+  supportsLiveEvaluation: false,
 }
 export type HumanEvaluationComparisonConfiguration = z.infer<
   typeof HumanEvaluationComparisonSpecification.configuration

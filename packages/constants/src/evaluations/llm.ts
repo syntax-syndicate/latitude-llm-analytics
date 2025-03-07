@@ -30,6 +30,7 @@ export const LlmEvaluationBinarySpecification = {
     FailDescription: z.string(),
   }),
   resultMetadata: LlmEvaluationResultMetadata.extend({}),
+  supportsLiveEvaluation: true,
 }
 export type LlmEvaluationBinaryConfiguration = z.infer<
   typeof LlmEvaluationBinarySpecification.configuration
@@ -37,6 +38,7 @@ export type LlmEvaluationBinaryConfiguration = z.infer<
 export type LlmEvaluationBinaryResultMetadata = z.infer<
   typeof LlmEvaluationBinarySpecification.resultMetadata
 >
+
 // RATING
 
 export const LlmEvaluationRatingSpecification = {
@@ -49,6 +51,7 @@ export const LlmEvaluationRatingSpecification = {
     MaxRatingDescription: z.string(),
   }),
   resultMetadata: LlmEvaluationResultMetadata.extend({}),
+  supportsLiveEvaluation: true,
 }
 export type LlmEvaluationRatingConfiguration = z.infer<
   typeof LlmEvaluationRatingSpecification.configuration
@@ -56,6 +59,7 @@ export type LlmEvaluationRatingConfiguration = z.infer<
 export type LlmEvaluationRatingResultMetadata = z.infer<
   typeof LlmEvaluationRatingSpecification.resultMetadata
 >
+
 // COMPARISON
 
 export const LlmEvaluationComparisonSpecification = {
@@ -65,6 +69,7 @@ export const LlmEvaluationComparisonSpecification = {
     DatasetLabel: z.string(),
   }),
   resultMetadata: LlmEvaluationResultMetadata.extend({}),
+  supportsLiveEvaluation: false,
 }
 export type LlmEvaluationComparisonConfiguration = z.infer<
   typeof LlmEvaluationComparisonSpecification.configuration
