@@ -2,9 +2,9 @@ import safeRegex from 'safe-regex'
 import {
   RuleEvaluationRegularExpressionConfiguration,
   RuleEvaluationRegularExpressionSpecification,
-} from '../../../../browser'
-import { database, Database } from '../../../../client'
-import { BadRequestError, Result } from '../../../../lib'
+} from '../../../browser'
+import { database, Database } from '../../../client'
+import { BadRequestError, Result } from '../../../lib'
 
 const specification = RuleEvaluationRegularExpressionSpecification
 export default {

@@ -1,9 +1,9 @@
 import {
   RuleEvaluationExactMatchConfiguration,
   RuleEvaluationExactMatchSpecification,
-} from '../../../../browser'
-import { database, Database } from '../../../../client'
-import { BadRequestError, Result } from '../../../../lib'
+} from '../../../browser'
+import { database, Database } from '../../../client'
+import { BadRequestError, Result } from '../../../lib'
 
 const specification = RuleEvaluationExactMatchSpecification
 export default {

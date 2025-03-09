@@ -4,32 +4,26 @@ import {
   BaseEvaluationResultMetadata,
 } from './shared'
 
-const LlmEvaluationConfiguration = BaseEvaluationConfiguration.extend({
+const llmEvaluationConfiguration = BaseEvaluationConfiguration.extend({
   ProviderId: z.string(),
   Model: z.string(),
   Instructions: z.string(),
 })
-const LlmEvaluationResultMetadata = BaseEvaluationResultMetadata.extend({
+const llmEvaluationResultMetadata = BaseEvaluationResultMetadata.extend({
   EvaluationLogId: z.string(),
   Reason: z.string(),
 })
-
-export enum LlmEvaluationMetric {
-  Binary = 'binary',
-  Rating = 'rating',
-  Comparison = 'comparison',
-}
 
 // BINARY
 
 export const LlmEvaluationBinarySpecification = {
   name: 'Binary',
   description: 'Judges whether the response is correct or incorrect',
-  configuration: LlmEvaluationConfiguration.extend({
+  configuration: llmEvaluationConfiguration.extend({
     PassDescription: z.string(),
     FailDescription: z.string(),
   }),
-  resultMetadata: LlmEvaluationResultMetadata.extend({}),
+  resultMetadata: llmEvaluationResultMetadata.extend({}),
   supportsLiveEvaluation: true,
 }
 export type LlmEvaluationBinaryConfiguration = z.infer<
@@ -44,13 +38,13 @@ export type LlmEvaluationBinaryResultMetadata = z.infer<
 export const LlmEvaluationRatingSpecification = {
   name: 'Rating',
   description: 'Judges the quality of the response',
-  configuration: LlmEvaluationConfiguration.extend({
+  configuration: llmEvaluationConfiguration.extend({
     MinRating: z.number(),
     MinRatingDescription: z.string(),
     MaxRating: z.number(),
     MaxRatingDescription: z.string(),
   }),
-  resultMetadata: LlmEvaluationResultMetadata.extend({}),
+  resultMetadata: llmEvaluationResultMetadata.extend({}),
   supportsLiveEvaluation: true,
 }
 export type LlmEvaluationRatingConfiguration = z.infer<
@@ -65,10 +59,10 @@ export type LlmEvaluationRatingResultMetadata = z.infer<
 export const LlmEvaluationComparisonSpecification = {
   name: 'Comparison',
   description: 'Judges whether the response is similar to the expected label',
-  configuration: LlmEvaluationConfiguration.extend({
+  configuration: llmEvaluationConfiguration.extend({
     DatasetLabel: z.string(),
   }),
-  resultMetadata: LlmEvaluationResultMetadata.extend({}),
+  resultMetadata: llmEvaluationResultMetadata.extend({}),
   supportsLiveEvaluation: false,
 }
 export type LlmEvaluationComparisonConfiguration = z.infer<
@@ -77,3 +71,36 @@ export type LlmEvaluationComparisonConfiguration = z.infer<
 export type LlmEvaluationComparisonResultMetadata = z.infer<
   typeof LlmEvaluationComparisonSpecification.resultMetadata
 >
+
+/* ------------------------------------------------------------------------- */
+
+export enum LlmEvaluationMetric {
+  Binary = 'binary',
+  Rating = 'rating',
+  Comparison = 'comparison',
+}
+
+// prettier-ignore
+export type LlmEvaluationConfiguration<M extends LlmEvaluationMetric = LlmEvaluationMetric> =
+  M extends LlmEvaluationMetric.Binary ? LlmEvaluationBinaryConfiguration :
+  M extends LlmEvaluationMetric.Rating ? LlmEvaluationRatingConfiguration :
+  M extends LlmEvaluationMetric.Comparison ? LlmEvaluationComparisonConfiguration :
+  never;
+
+// prettier-ignore
+export type LlmEvaluationResultMetadata<M extends LlmEvaluationMetric = LlmEvaluationMetric> =
+  M extends LlmEvaluationMetric.Binary ? LlmEvaluationBinaryResultMetadata :
+  M extends LlmEvaluationMetric.Rating ? LlmEvaluationRatingResultMetadata :
+  M extends LlmEvaluationMetric.Comparison ? LlmEvaluationComparisonResultMetadata :
+  never;
+
+export const LlmEvaluationSpecification = {
+  name: 'LLM-as-a-Judge',
+  description: 'Evaluate responses using an LLM as a judge',
+  // prettier-ignore
+  metrics: {
+    [LlmEvaluationMetric.Binary]: LlmEvaluationBinarySpecification,
+    [LlmEvaluationMetric.Rating]: LlmEvaluationRatingSpecification,
+    [LlmEvaluationMetric.Comparison]: LlmEvaluationComparisonSpecification,
+  },
+}

@@ -4,34 +4,33 @@ import {
   EvaluationMetricSpecification,
   EvaluationSpecification,
   EvaluationType,
-} from '@latitude-data/constants'
-import { IconName } from '@latitude-data/web-ui'
-import React from 'react'
+} from '../../browser'
+import { Database } from '../../client'
+import { LatitudeError, TypedResult } from '../../lib'
 import HumanEvaluationSpecification from './human'
 import LlmEvaluationSpecification from './llm'
 import RuleEvaluationSpecification from './rule'
 
-export type EvaluationMetricFrontendSpecification<
+export type EvaluationMetricBackendSpecification<
   T extends EvaluationType = EvaluationType,
   M extends EvaluationMetric<T> = EvaluationMetric<T>,
 > = EvaluationMetricSpecification<T, M> & {
-  icon: IconName
-  configurationForm: React.FC<{
-    configuration: EvaluationConfiguration<M>
-    onChange: (configuration: EvaluationConfiguration<M>) => void
-  }>
+  validate: (
+    args: { configuration: EvaluationConfiguration<M> },
+    db?: Database,
+  ) => Promise<TypedResult<EvaluationConfiguration<M>, LatitudeError>>
 }
 
-export type EvaluationFrontendSpecification<
+export type EvaluationBackendSpecification<
   T extends EvaluationType = EvaluationType,
 > = Omit<EvaluationSpecification<T>, 'metrics'> & {
   metrics: {
-    [M in EvaluationMetric<T>]: EvaluationMetricFrontendSpecification<T, M>
+    [M in EvaluationMetric<T>]: EvaluationMetricBackendSpecification<T, M>
   }
 }
 
 export const EVALUATION_SPECIFICATIONS: {
-  [T in EvaluationType]: EvaluationFrontendSpecification<T>
+  [T in EvaluationType]: EvaluationBackendSpecification<T>
 } = {
   [EvaluationType.Rule]: RuleEvaluationSpecification,
   [EvaluationType.Llm]: LlmEvaluationSpecification,

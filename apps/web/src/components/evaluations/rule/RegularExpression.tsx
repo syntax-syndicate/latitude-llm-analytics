@@ -20,5 +20,7 @@ function ConfigurationForm({
     configuration: RuleEvaluationRegularExpressionConfiguration,
   ) => void
 }) {
-  return <div>ExactMatch</div>
+  configuration // TODO: Implement
+  onChange // TODO: Implement
+  return <div>Regular Expression</div>
 }

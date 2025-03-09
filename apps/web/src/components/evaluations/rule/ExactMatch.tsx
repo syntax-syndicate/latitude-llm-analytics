@@ -18,5 +18,7 @@ function ConfigurationForm({
   configuration: RuleEvaluationExactMatchConfiguration
   onChange: (configuration: RuleEvaluationExactMatchConfiguration) => void
 }) {
-  return <div>ExactMatch</div>
+  configuration // TODO: Implement
+  onChange // TODO: Implement
+  return <div>Exact Match</div>
 }
